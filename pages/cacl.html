@@ -1,0 +1,329 @@
+﻿<html>
+<head>
+    <title>科学计算器</title>
+    <script type="text/javascript" src="scripts/start.js"></script>
+    <script type="text/javascript" src="scripts/html5.js"></script>
+    <script type="text/javascript" src="scripts/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="scripts/enyo.js"></script>
+    <script type="text/javascript" src="scripts/start2.js"></script>
+    <style>
+        @font-face { font-family: "Bernstein"; src: url("font-family/OpenSans-Light.ttf") format("woff"); src: url("font-family/OpenSans-Light.ttf") format("truetype"); font-weight: normal; font-style: normal; }
+        
+        input, textarea { outline: none; font-family: 'Bernstein' , 'Microsoft Yahei'; }
+        
+        .buttonback { height: 100%; width: 16%; font-family: 'Bernstein' , 'Microsoft Yahei'; font-weight: bold; fontsize: 100%; cursor: pointer; -moz-box-shadow: 1px 1px 1px black; -webkit-box-shadow: 1px 1px 1px black; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -o-user-select: none; user-select: none; background-color: #ccc; border: 1px solid #000000; color: #333; }
+        .buttonback:active { background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#BCBCBC), to(#FCFCFC)); background-image: -moz-linear-gradient(0% 100% 90deg, #FCFCFC, #BCBCBC); background-color: #BCBCBC; color: #000; }
+        
+        .buttoncls { height: 100%; width: 16%; font-family: 'Bernstein' , 'Microsoft Yahei'; font-weight: normal; fontsize: 100%; cursor: pointer; -moz-box-shadow: 1px 1px 1px black; -webkit-box-shadow: 1px 1px 1px black; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -o-user-select: none; user-select: none; background-color: #ff913c; border: 1px solid #000000; color: white; }
+        .buttoncls:active { background-color: #96514D; }
+        
+        .buttonclsblue { height: 100%; width: 16%; font-family: 'Bernstein' , 'Microsoft Yahei'; font-weight: bold; fontsize: 100%; cursor: pointer; -moz-box-shadow: 1px 1px 1px black; -webkit-box-shadow: 1px 1px 1px black; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -o-user-select: none; user-select: none; background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fafafa), to(#ccc)); background-image: -moz-linear-gradient(0% 100% 90deg, #ccc, #fafafa); background-color: #ccc; border: 1px solid #000000; color: #333; }
+        .buttonclsblue:active { background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#BCBCBC), to(#FCFCFC)); background-image: -moz-linear-gradient(0% 100% 90deg, #FCFCFC, #BCBCBC); background-color: #BCBCBC; color: #000; }
+        
+        .buttonstyl { height: 11%; width: 16%; font-family: 'Bernstein' , 'Microsoft Yahei'; color: White; font-weight: normal; fontsize: 100%; cursor: pointer; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -o-user-select: none; user-select: none; background-color: #2b99f2; border: 1px solid #000000; }
+        .buttonstyl:active { background-color: #52A8E8; }
+        
+        .buttonstylblue { height: 11%; width: 16%; font-family: 'Bernstein' , 'Microsoft Yahei'; font-weight: bold; fontsize: 100%; cursor: pointer; -moz-box-shadow: 1px 1px 1px black; -webkit-box-shadow: 1px 1px 1px black; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -o-user-select: none; user-select: none; background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#888), to(#666)); background-image: -moz-linear-gradient(0% 100% 90deg, #666, #888); background-color: #666; border: 1px solid #000; text-shadow: 1px 1px 1px #fff; }
+        .buttonstylblue:active { background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#666), to(#666)); background-image: -moz-linear-gradient(0% 100% 90deg, #666, #666); background-color: #666; }
+        
+        .buttonstylnumpad { height: 11%; font-family: 'Bernstein' , 'Microsoft Yahei'; color: White; font-weight: bold; fontsize: 100%; cursor: pointer; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -o-user-select: none; user-select: none; background-color: #606060; border: 1px solid #000000; }
+        .buttonstylnumpad:active { background-color: #BCBCBC; color: #000; }
+        
+        .buttonstylmempad { height: 11%; font-family: 'Bernstein' , 'Microsoft Yahei'; font-weight: bold; fontsize: 100%; background: rgb(238, 238, 238); cursor: pointer; -moz-box-shadow: 1px 1px 1px black; -webkit-box-shadow: 1px 1px 1px black; border: solid 0px #CCCCCC; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -o-user-select: none; user-select: none; background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#999), to(#777)); background-image: -moz-linear-gradient(0% 100% 90deg, #777, #999); background-color: #777; border: 1px solid #000; text-shadow: 1px 1px 1px #fff; }
+        .buttonstylmempad:active { background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#777), to(#777)); background-image: -moz-linear-gradient(0% 100% 90deg, #777, #777); background-color: #777; }
+        
+        .buttonstylothpad { height: 11%; font-family: 'Bernstein' , 'Microsoft Yahei'; font-weight: bold; fontsize: 100%; cursor: pointer; -moz-box-shadow: 1px 1px 1px black; -webkit-box-shadow: 1px 1px 1px black; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -o-user-select: none; user-select: none; background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ccc), to(#bbb)); background-image: -moz-linear-gradient(0% 100% 90deg, #bbb, #ccc); background-color: #bbb; border: 1px solid #000; text-shadow: 1px 1px 1px #fff; }
+        .buttonstylothpad:active { background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#bbb), to(#bbb)); background-image: -moz-linear-gradient(0% 100% 90deg, #bbb, #bbb); background-color: #bbb; }
+        
+        .buttonstylentpad { height: 11%; font-family: 'Bernstein' , 'Microsoft Yahei'; font-weight: bold; fontsize: 100%; cursor: pointer; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -o-user-select: none; user-select: none; background-color: #129b49; border: 1px solid #000000; color: White; }
+        .buttonstylentpad:active { background-color: #22CD00; }
+        
+        .buttonstylentpadblue { height: 11%; font-family: 'Bernstein' , 'Microsoft Yahei'; font-weight: bold; fontsize: 100%; cursor: pointer; -moz-box-shadow: 1px 1px 1px black; -webkit-box-shadow: 1px 1px 1px black; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -o-user-select: none; user-select: none; background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ccc), to(#bbb)); background-image: -moz-linear-gradient(0% 100% 90deg, #bbb, #ccc); background-color: #bbb; border: 1px solid #000000; text-shadow: 1px 1px 1px #fff; }
+        .buttonstylentpadblue:active { background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#bbb), to(#bbb)); background-image: -moz-linear-gradient(0% 100% 90deg, #bbb, #bbb); background-color: #bbb; }
+        
+        .buttonstylhistpad { height: 11%; font-family: 'Bernstein' , 'Microsoft Yahei'; font-weight: bold; fontsize: 100%; cursor: pointer; -moz-box-shadow: 1px 1px 1px black; -webkit-box-shadow: 1px 1px 1px black; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -o-user-select: none; user-select: none; background-color: #ccc; border: 1px solid #000000; color: #333; }
+        .buttonstylhistpad:active { background-color: #BCBCBC; color: #000; }
+        
+        ::-webkit-scrollbar { width: 10px; height: 0px; }
+        ::-webkit-scrollbar-track { border-radius: 5px; }
+        ::-webkit-scrollbar-thumb { background-color: #999999; border-radius: 5px; -webkit-box-shadow: inset 0 0 6px #CCCCCC; }
+        .selectbox { outline: none; border-width: 0px; width: 95%; font-size: 100%; background-color: #FAFAFA; }
+        .bodywood { background: #e8c2a6; background-image: url("images/image1.jpg"), url("images/image2.jpg"); background-repeat: repeat-x, repeat; }
+        .normalbody { background-color: black; ffbackground-color: black; -webkit-background-size: 5px 5px; }
+    </style>
+</head>
+<body class="normalbody" onunload="Zatvoreno()">
+    <form name="racunalo">
+    <input type="hidden" name="oldrezultat" value="">
+    <input type="hidden" name="memorija" value="">
+    <div style="background-repeat: no-repeat; background-position-x: center; background-position-y: center; font-size: 100%; position: fixed; left: 0; top: 0; width: 100%; height: 100%;">
+        <table cellspacing="0" cellpadding="0" border="0" style="opacity: 0.90; font-size: 100%; height: 100%; width: 100%">
+            <tr>
+                <td align="center" style="vertical-align: middle;">
+                    <table cellspacing="0" cellpadding="0" border="0" style="font-size: 100%; height: 95%; width: 85%">
+                        <tr>
+                            <td height="5%">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="10%">
+                                <table style="font-size: 100%; height: 100%; width: 100%">
+                                    <tr>
+                                        <td>
+                                            <input type="text" name="rezultat" id="rezultat" value="" _onfocus="display(document.racunalo.rezultat.value)" style="-moz-box-shadow: 1px 1px 1px black; -webkit-box-shadow: 1px 1px 1px black; border: 1px solid black; -moz-background-clip: initial; -moz-background-inline-policy: initial; -moz-background-origin: initial; font-size: 200%; height: 100%; width: 100%; padding-left: 0.7%;">
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="80%">
+                                <table cellspacing="0" cellpadding="0" border="0" style="font-size: 100%; height: 100%; width: 100%">
+                                    <tr>
+                                        <td width="50%">
+                                            <table style="font-size: 100%;" height="100%" width="100%">
+                                                <tr style="visibility: hidden">
+                                                    <td style="visibility: hidden; height: 1px;">
+                                                        <div style="width: 39px">
+                                                        </div>
+                                                    </td>
+                                                    <td style="visibility: hidden; height: 1px;">
+                                                        <div style="width: 39px">
+                                                        </div>
+                                                    </td>
+                                                    <td style="visibility: hidden; height: 1px;">
+                                                        <div style="width: 39px">
+                                                        </div>
+                                                    </td>
+                                                    <td style="visibility: hidden; height: 1px;">
+                                                        <div style="width: 39px">
+                                                        </div>
+                                                    </td>
+                                                    <td style="visibility: hidden; height: 1px;">
+                                                        <div style="width: 39px">
+                                                        </div>
+                                                    </td>
+                                                    <td style="visibility: hidden; height: 1px;">
+                                                        <div style="width: 39px">
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td align="center" style="height: 11%; border: 1px solid #000000; -moz-box-shadow: 1px 1px 1px black; -webkit-box-shadow: 1px 1px 1px black; background-color: #FAFAFA;" colspan="2">
+                                                        <select class="selectbox" name="izaZareza" size="1" _onchange="document.racunalo.oldrezultat.onchange">
+                                                            <option value="-1" selected="selected">decimal</option>
+                                                            <option value="0">0 </option>
+                                                            <option value="1">1 </option>
+                                                            <option value="2">2 </option>
+                                                            <option value="3">3 </option>
+                                                            <option value="4">4 </option>
+                                                            <option value="5">5 </option>
+                                                            <option value="6">6 </option>
+                                                            <option value="7">7 </option>
+                                                            <option value="8">8 </option>
+                                                            <option value="9">9 </option>
+                                                            <option value="10">10 </option>
+                                                            <option value="11">11 </option>
+                                                        </select>
+                                                    </td>
+                                                    <td colspan="2" align="center" style="height: 11%;" style="font-size: 100%;">
+                                                        <input style="display: none;" type="radio" name="stupnjevi" checked="checked" title="Radians" _onclick="zadatakfocus">
+                                                        <a href="#" _onclick="document.racunalo.stupnjevi[0].click()" _onmouseover="self.status='Radians'; return true" style="text-decoration: none; display: none;"><font face="Arial" color="white">Radians</font></a>
+                                                    </td>
+                                                    <td style="display: none;" align="center" style="height: 11%;" style="font-size: 100%;">
+                                                        <input type="radio" style="display: none;" name="stupnjevi" title="Degrees" _onclick="zadatakfocus">
+                                                        <a href="#" _onclick="document.racunalo.stupnjevi[1].click()" _onmouseover="self.status='Degrees'; return true" style="text-decoration: none; display: none;"><font face="Arial" color="white">Deg</font></a>
+                                                    </td>
+                                                    <td style="height: 11%;" align="center" title="<--" class="buttonback" _onclick="zadatakfocus" _onmousedown="memory(5)">
+                                                        <--
+                                                    </td>
+                                                    <td style="height: 11%;" align="center" title="Clear screen" id="buttonclsid" class="buttoncls" _onclick="zadatakfocus" _onmousedown="memory(3)">
+                                                        Cls
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="height: 11%;" colspan="6">
+                                                        <input _onfocus="var val=this.value; this.value=''; this.value= val;" type="text" size="17" name="zadatak" value="" _onchange="" _onkeydown="if (event.keyCode==13) {enter.click()}" style="border: 1px solid #000000; -moz-box-shadow: 1px 1px 1px black; -webkit-box-shadow: 1px 1px 1px black; font-size: 150%; height: 100%; width: 100%; padding-left: 1%;">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td id="scientific1" align="center" title="Square root" class="buttonstyl" _onclick="zadatakfocus" _onmousedown="izracunaj(3)">
+                                                        sqrt
+                                                    </td>
+                                                    <td id="scientific2" align="center" title="Root" class="buttonstyl" _onclick="zadatakfocus" _onmousedown="izracunaj(22)">
+                                                        root
+                                                    </td>
+                                                    <td id="scientific3" align="center" title="Natural logarithm" class="buttonstyl" _onclick="zadatakfocus" _onmousedown="izracunaj(5)">
+                                                        ln
+                                                    </td>
+                                                    <td id="scientific4" align="center" title="Common logarithm" class="buttonstyl" _onclick="zadatakfocus" _onmousedown="izracunaj(8)">
+                                                        log
+                                                    </td>
+                                                    <td id="scientific5" align="center" title="Tangent" class="buttonstyl" _onclick="zadatakfocus" _onmousedown="izracunaj(14)">
+                                                        tan
+                                                    </td>
+                                                    <td id="scientific6" align="center" title="Arc tangent" class="buttonstyl" _onclick="zadatakfocus" _onmousedown="izracunaj(10)">
+                                                        atan
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td id="scientific7" align="center" title="Square" class="buttonstyl" _onclick="zadatakfocus" _onmousedown="izracunaj(2)">
+                                                        x^2
+                                                    </td>
+                                                    <td id="scientific8" align="center" title="Power" class="buttonstyl" _onclick="zadatakfocus" _onmousedown="izracunaj(21)">
+                                                        x^y
+                                                    </td>
+                                                    <td id="scientific9" align="center" title="Natural antilogarithm" class="buttonstyl" _onclick="zadatakfocus" _onmousedown="izracunaj(6)">
+                                                        e^x
+                                                    </td>
+                                                    <td id="scientific10" align="center" title="Common antilogarithm" class="buttonstyl" _onclick="zadatakfocus" _onmousedown="izracunaj(9)">
+                                                        10^x
+                                                    </td>
+                                                    <td id="scientific11" align="center" title="Cosine" class="buttonstyl" _onclick="zadatakfocus" _onmousedown="izracunaj(15)">
+                                                        cos
+                                                    </td>
+                                                    <td id="scientific12" align="center" title="Arc cosine" class="buttonstyl" _onclick="zadatakfocus" _onmousedown="izracunaj(11)">
+                                                        acos
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td id="scientific13" align="center" title="Change sign" class="buttonstyl" _onclick="zadatakfocus" _onmousedown="izracunaj(4)">
+                                                        +/-
+                                                    </td>
+                                                    <td id="scientific14" align="center" class="buttonstyl" _onclick="zadatakfocus" _onmousedown="izracunaj(7)">
+                                                        1/x
+                                                    </td>
+                                                    <td id="scientific15" align="center" title="Factorial" class="buttonstyl" _onclick="zadatakfocus" _onmousedown="izracunaj(20)">
+                                                        x!
+                                                    </td>
+                                                    <td id="scientific16" align="center" title="Percent" class="buttonstyl" _onclick="zadatakfocus" _onmousedown="izracunaj(17)">
+                                                        %
+                                                    </td>
+                                                    <td id="scientific17" align="center" title="Sine" class="buttonstyl" _onclick="zadatakfocus" _onmousedown="izracunaj(16)">
+                                                        sin
+                                                    </td>
+                                                    <td id="scientific18" align="center" title="Arc sine" class="buttonstyl" _onclick="zadatakfocus" _onmousedown="izracunaj(12)">
+                                                        asin
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td align="center" title="" class="buttonstylnumpad" _onclick="zadatakfocus" _onmousedown="dodajBroj(7)">
+                                                        7
+                                                    </td>
+                                                    <td align="center" title="" class="buttonstylnumpad" _onclick="zadatakfocus" _onmousedown="dodajBroj(8)">
+                                                        8
+                                                    </td>
+                                                    <td align="center" title="" class="buttonstylnumpad" _onclick="zadatakfocus" _onmousedown="dodajBroj(9)">
+                                                        9
+                                                    </td>
+                                                    <td align="center" title="" class="buttonstylnumpad" _onclick="zadatakfocus" _onmousedown="dodajBroj('/')">
+                                                        /
+                                                    </td>
+                                                    <td align="center" title="" class="buttonstylothpad" _onclick="zadatakfocus" _onmousedown="dodajBroj('e')">
+                                                        E
+                                                    </td>
+                                                    <td align="center" title="" class="buttonstylothpad" _onclick="zadatakfocus" _onmousedown="">
+                                                        &nbsp;
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td align="center" title="" class="buttonstylnumpad" _onclick="zadatakfocus" _onmousedown="dodajBroj(4)">
+                                                        4
+                                                    </td>
+                                                    <td align="center" title="" class="buttonstylnumpad" _onclick="zadatakfocus" _onmousedown="dodajBroj(5)">
+                                                        5
+                                                    </td>
+                                                    <td align="center" title="" class="buttonstylnumpad" _onclick="zadatakfocus" _onmousedown="dodajBroj(6)">
+                                                        6
+                                                    </td>
+                                                    <td align="center" title="" class="buttonstylnumpad" _onclick="zadatakfocus" _onmousedown="dodajBroj('*')">
+                                                        *
+                                                    </td>
+                                                    <td align="center" title="" class="buttonstylothpad" _onclick="zadatakfocus" _onmousedown="dodajBroj('(')">
+                                                        (
+                                                    </td>
+                                                    <td align="center" title="" class="buttonstylothpad" _onclick="zadatakfocus" _onmousedown="dodajBroj(')')">
+                                                        )
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td align="center" title="" class="buttonstylnumpad" _onclick="zadatakfocus" _onmousedown="dodajBroj(1)">
+                                                        1
+                                                    </td>
+                                                    <td align="center" title="" class="buttonstylnumpad" _onclick="zadatakfocus" _onmousedown="dodajBroj(2)">
+                                                        2
+                                                    </td>
+                                                    <td align="center" title="" class="buttonstylnumpad" _onclick="zadatakfocus" _onmousedown="dodajBroj(3)">
+                                                        3
+                                                    </td>
+                                                    <td align="center" title="" class="buttonstylnumpad" _onclick="zadatakfocus" _onmousedown="dodajBroj('-')">
+                                                        -
+                                                    </td>
+                                                    <td align="center" title="Memory recall" class="buttonstylmempad" _onclick="zadatakfocus" _onmousedown="memory(2)">
+                                                        MR
+                                                    </td>
+                                                    <td align="center" title="Memory store" class="buttonstylmempad" _onclick="zadatakfocus" ___onmousedown="memory(1); return false;">
+                                                        MS
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td align="center" title="" class="buttonstylnumpad" _onclick="zadatakfocus" _onmousedown="dodajBroj(0)">
+                                                        0
+                                                    </td>
+                                                    <td align="center" title="" class="buttonstylnumpad" _onclick="zadatakfocus" _onmousedown="dodajBroj('.')">
+                                                        .
+                                                    </td>
+                                                    <td align="center" title="" class="buttonstylnumpad" _onclick="zadatakfocus" _onmousedown="dodajBroj('(-)')">
+                                                        (-)
+                                                    </td>
+                                                    <td align="center" title="" class="buttonstylnumpad" _onclick="zadatakfocus" _onmousedown="dodajBroj('+')">
+                                                        +
+                                                    </td>
+                                                    <td align="center" title="" name="enter" class="buttonstylentpad" id="buttonstylentpadid" _onclick="zadatakfocus" _onmousedown="izracunaj(1)" colspan="2">
+                                                        <input style="display: none;" type="button" value="=" style="">
+                                                        =
+                                                        <input style="display: none;" type="button" name="enter" _onclick="izracunaj_1" value="=" style="">
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td width="50%">
+                                            <table style="font-size: 100%; border-radius: 5px; -webkit-border-radius: 5px;" width="100%" height="100%" border="0">
+                                                <tr>
+                                                    <td colspan="3">
+                                                        <textarea __onchange="localStorage.setItem('rememberedtaskhistory', document.racunalo.notes.value);" name="notes" style="-moz-box-shadow: 1px 1px 1px black; -webkit-box-shadow: 1px 1px 1px black; border: 1px solid black; opacity: 0.8; font-size: 150%; height: 100%; width: 100%; padding-left: 1%; padding-top: 1%;"></textarea>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td align="center" title="Clear Form" class="buttonstylhistpad" _onclick="zadatakfocus" _onmousedown="memory(4)">
+                                                        Clear
+                                                    </td>
+                                                    <td align="center" title="Select All" class="buttonstylhistpad" _onclick="zadatakfocusdocument.racunalo.notes.select" ___onmousedown="document.racunalo.notes.focus(); document.racunalo.notes.select()">
+                                                        Select All
+                                                    </td>
+                                                    <td align="center" title="Reset Form" class="buttonstylhistpad" _onclick="zadatakfocus" __onmousedown="document.racunalo.reset();memory(4);">
+                                                        Reset
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="5%">
+                                <div>
+                                    &nbsp;
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>
+    </form>
+</body>
+<script type="text/javascript" src="scripts/end.js"></script>
+</html>

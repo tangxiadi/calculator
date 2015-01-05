@@ -1,0 +1,35 @@
+{
+   "version": "2.1",
+   "name": "科学计算器",
+   "description": "一款基于JavaScript设计的免费离线科学计算器，功能强大。点击工具栏图标即可启动。",
+   
+   "background": { "page" : "background.html" },
+
+   "manifest_version": 2,
+
+   "options_page": "pages/cacl.html",
+   "icons": {
+      "16": "img/16.png",
+      "48": "img/48.png",
+      "128": "img/128.png"
+   },
+   "browser_action": {
+	   "default_title": "科学计算器",
+       "default_icon": {
+            "19": "img/19.png",
+            "38": "img/38.png"
+        },
+       "default_popup": "popup.html"
+   },
+   
+   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+
+   "permissions": [ "http://*/*", "https://*/*" ],
+   "content_scripts": [
+        {
+          "matches": ["http://*/*","https://*/*"],
+          "js": ["scripts/jquery-1.7.2.min.js"]
+        }
+   ]
+   
+}
