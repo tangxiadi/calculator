@@ -1,7 +1,7 @@
 {
    "version": "2.1",
    "name": "科学计算器",
-   "description": "一款基于JavaScript设计的免费离线科学计算器，功能强大。点击工具栏图标即可启动。",
+   "description": "一款基于JavaScript的免费离线科学计算器，功能强大。点击工具栏图标即可启动。",
    
    "background": { "page" : "background.html" },
 
